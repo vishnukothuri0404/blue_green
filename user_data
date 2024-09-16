@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Update package index
+echo "Updating package index..."
+sudo yum update -y
+
+# Install Apache HTTP Server
+echo "Installing Apache HTTP Server..."
+sudo yum install -y httpd
+
+# Create a custom welcome message
+echo "Creating custom welcome message..."
+echo "<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+</head>
+<body>
+    <h1>Welcome to Apache HTTP Server!</h1>
+    <p>Your server is up and running.</p>
+</body>
+</html>" | sudo tee /var/www/html/index.html > /dev/null
+
+# Start and enable Apache to start on boot
+echo "Starting and enabling Apache HTTP Server..."
+sudo systemctl start httpd
+sudo systemctl enable httpd
+sudo yum install ruby wget -y
+wget https://aws-codedeploy-us-east-2.s3.us-east-2.amazonaws.com/latest/install
+
+chmod +x ./install
+sudo ./install auto
